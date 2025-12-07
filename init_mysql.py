@@ -55,6 +55,7 @@ def mod_key():
         with open('./service/api/db.py','w',encoding='utf-8') as f:
             f.write(w_str)
 
-init()
+if __name__ == '__main__':
+    init()
 
 

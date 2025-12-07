@@ -1,5 +1,7 @@
 from flask import Blueprint, Response, render_template, request, jsonify, redirect, url_for,make_response
 from sqlalchemy.sql import func
+
+from init_mysql import init
 from service.database.models import AdminUser,AdminLog,Config, Notice, Payment, Plugin,ProdCag,ProdInfo,Card,Order,TempOrder
 from service.api.db import db,limiter
 from service.util.backup.sql import main_back,loc_sys_back,loc_shop_back,loc_order_back,order_backup_sql,update_order   #备份操作
@@ -33,6 +35,11 @@ admin = Blueprint('admin', __name__,url_prefix='/api/v4')
 @limiter.limit("5 per minute", override_defaults=False)
 def index():
     return 'admin hello'
+
+@admin.route('/init')
+def init_db():
+    init()
+    return 'init_db'
 
 import time
 from functools import wraps
